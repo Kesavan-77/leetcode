@@ -4,33 +4,35 @@
  * @return {string[]}
  */
 var sortPeople = function(names, heights) {
-    if (heights.length <= 1) {
-        return names;
+    quicksort(0, heights.length - 1);
+    return names;
+
+    function quicksort(left, right) {
+        if (left >= right) return;
+
+        const pivotIdx = partition(left, right);
+        quicksort(left, pivotIdx - 1);
+        quicksort(pivotIdx + 1, right);
     }
 
-    const pivotIdx = Math.floor(heights.length / 2);
-    const pivotHeight = heights[pivotIdx];
-    const pivotName = names[pivotIdx];
+    function partition(left, right) {
+        const pivotHeight = heights[right];
+        const pivotName = names[right];
+        let i = left - 1;
 
-    let leftNames = [];
-    let rightNames = [];
-    let leftHeights = [];
-    let rightHeights = [];
-
-    for (let i = 0; i < heights.length; i++) {
-        if (i === pivotIdx) continue;
-
-        if (heights[i] > pivotHeight) {
-            leftNames.push(names[i]);
-            leftHeights.push(heights[i]);
-        } else {
-            rightNames.push(names[i]);
-            rightHeights.push(heights[i]);
+        for (let j = left; j < right; j++) {
+            if (heights[j] > pivotHeight) {
+                i++;
+                swap(i, j);
+            }
         }
+
+        swap(i + 1, right);
+        return i + 1;
     }
 
-    const sortedLeft = sortPeople(leftNames, leftHeights);
-    const sortedRight = sortPeople(rightNames, rightHeights);
-
-    return sortedLeft.concat([pivotName], sortedRight);
+    function swap(i, j) {
+        [heights[i], heights[j]] = [heights[j], heights[i]];
+        [names[i], names[j]] = [names[j], names[i]];
+    }
 };
