@@ -3,20 +3,15 @@
  * @return {number[]}
  */
 var frequencySort = function (nums) {
-    let map = new Map();
-    let res = [];
+    const map = new Map();
 
     for (let val of nums) {
-        map.has(val) ? map.set(val, map.get(val) + 1) : map.set(val, 1);
+        map.set(val, (map.get(val) || 0) + 1);
     }
 
-    let sortedMap = new Map([...map.entries()]
-        .sort((a, b) => a[1] - b[1] === 0 ? b[0] - a[0] : a[1] - b[1]));
-
-    console.log(sortedMap)
-    sortedMap.forEach((value, key) => {
-        for (let i = 0; i < value; i++) res.push(key);
+    return nums.sort((a, b) => {
+        const freqA = map.get(a);
+        const freqB = map.get(b);
+        return freqA === freqB ? b - a : freqA - freqB;
     });
-
-    return res;
 };
