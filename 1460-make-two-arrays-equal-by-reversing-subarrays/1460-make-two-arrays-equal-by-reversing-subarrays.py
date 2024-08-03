@@ -27,4 +27,9 @@ class Solution:
                 res.append(rightArr[j])
                 j+=1
             return res
-        return mergeSort(target)==mergeSort(arr)
+        arr1 = mergeSort(target)
+        arr2 = mergeSort(arr)
+        for i in range(len(arr1)):
+            if(arr1[i]!=arr2[i]):
+                return False
+        return True
