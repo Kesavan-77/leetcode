@@ -4,7 +4,7 @@ class Solution:
             if(len(arr)<=1):
                 return arr
             n = len(arr)
-            mid = len(arr)//2
+            mid = n//2
             left = arr[:mid]
             right = arr[mid:n]
             leftArr = mergeSort(left)
