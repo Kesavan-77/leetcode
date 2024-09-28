@@ -56,7 +56,6 @@ MyCircularDeque.prototype.deleteLast = function() {
  * @return {number}
  */
 MyCircularDeque.prototype.getFront = function() {
-    console.log(this.myQueue);
     if(this.myQueue.length === 0) {
         return -1;
     }
