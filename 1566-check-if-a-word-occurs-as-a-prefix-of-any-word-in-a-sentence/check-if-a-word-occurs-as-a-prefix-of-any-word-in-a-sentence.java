@@ -1,6 +1,14 @@
 class Solution {
     public int isPrefixOfWord(String sentence, String searchWord) {
-        sentence = " " + sentence;
+        String[] words = sentence.split(" ");
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].startsWith(searchWord)) {
+                return i + 1;
+            }
+        }
+        return -1;
+
+        /*sentence = " " + sentence;
         int count = 0;
         for(int i=1;i<sentence.length();i++){
             int j = 0;
@@ -16,6 +24,6 @@ class Solution {
                 if(j==searchWord.length()) return count;
             }
         }
-        return -1;
+        return -1; */
     }
 }
