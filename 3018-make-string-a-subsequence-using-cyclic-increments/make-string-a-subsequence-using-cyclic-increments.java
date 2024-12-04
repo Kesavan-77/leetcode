@@ -1,15 +1,14 @@
 class Solution {
     public boolean canMakeSubsequence(String str1, String str2) {
-        int i=0,j=0;
-        while(j<str2.length() && i<str1.length()){
-            if(str1.charAt(i)==str2.charAt(j) || str1.charAt(i)+1 == str2.charAt(j)+0 || str1.charAt(i)-25 == str2.charAt(j)+0){
-                i++;
+        int i = 0, j = 0;
+        while (i < str1.length() && j < str2.length()) {
+            char c1 = str1.charAt(i);
+            char c2 = str2.charAt(j);
+            if (c1 == c2 || (c1 + 1 == c2) || (c1 == 'z' && c2 == 'a')) {
                 j++;
-                if(j>str2.length()-1) return true;
-            } else {
-                i++;
             }
+            i++;
         }
-        return false;
+        return j == str2.length();
     }
 }
