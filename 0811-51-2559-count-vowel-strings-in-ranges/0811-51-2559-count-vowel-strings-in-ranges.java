@@ -1,24 +1,20 @@
 class Solution {
     public int[] vowelStrings(String[] words, int[][] queries) {
-        Set<Character> vowels = new HashSet<>();
-        vowels.add('a');
-        vowels.add('e');
-        vowels.add('i');
-        vowels.add('o');
-        vowels.add('u');
-        int[] res = new int[queries.length];
-        int[] prefixVal = new int[words.length];
-        int prefixSum = 0;
-        for(int i=0;i<words.length;i++){
-            if(vowels.contains(words[i].charAt(0)) && vowels.contains(words[i].charAt(words[i].length()-1))){
-                prefixSum++;
-            }
-            prefixVal[i] = prefixSum;
-            System.out.println(prefixVal[i]);
+        Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u');
+        int n = words.length;
+        int[] prefixVal = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            prefixVal[i + 1] = prefixVal[i] + (isVowelString(words[i], vowels) ? 1 : 0);
         }
-        for(int i=0;i<queries.length;i++){
-            res[i] = prefixVal[queries[i][1]] - (queries[i][0] == 0 ? 0 : prefixVal[queries[i][0] - 1]);
+        int[] res = new int[queries.length];
+        for (int i = 0; i < queries.length; i++) {
+            int left = queries[i][0];
+            int right = queries[i][1] + 1; 
+            res[i] = prefixVal[right] - prefixVal[left];
         }
         return res;
+    }
+    private boolean isVowelString(String word, Set<Character> vowels) {
+        return vowels.contains(word.charAt(0)) && vowels.contains(word.charAt(word.length() - 1));
     }
 }
